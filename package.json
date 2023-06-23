@@ -4,7 +4,7 @@
   "description": "login-lecture #백엔드 맛보기 강좌",
   "main": "index.js",
   "scripts": {
-    "start": "node ./bin/www.js",
+    "start": "node ./src/bin/www.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
