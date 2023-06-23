@@ -1,7 +1,6 @@
 "use strict";
 
-//컨트롤러 분리
-const index = (req, res) => {
+const home = (req, res) => {
     res.render('home/index')
 };
 
@@ -10,6 +9,6 @@ const login = (req, res) => {
 };
 
 module.exports = {
-    index,
+    home,
     login
-}
+};
