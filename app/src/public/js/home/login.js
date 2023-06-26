@@ -14,6 +14,8 @@ function login() {
         pass: pass.value
     };
     // console.log(req);
+
+    //fetch로 서버에 값을 보낸다.
     fetch('/login', {
         method: "POST", //rest의 전달 기능  
         headers: {
@@ -21,8 +23,17 @@ function login() {
         },
         body: JSON.stringify(req),
     })
-    .then((res) => res.json())
-    .then((res) => {
-        console.log(res);
+    //then으로 서버에서 데이터를 가져올 수 있다.
+    .then((res) => res.json()) //res.json json으로 묶인 res를 Promiss 형태로불러온다.
+    .then((res) => {   //Promise값을 받기 위해서 then을 한 번 더 사용해 줘야 한다.
+        if(res.success) {
+            alert(res.msg);
+            location.href = "/";
+        } else {
+            alert(res.msg);
+        }
+    })
+    .catch((err) => {
+        console.error(new Error('로그인 중 에러 발생'));
     });
 }

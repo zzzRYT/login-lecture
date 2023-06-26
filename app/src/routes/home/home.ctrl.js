@@ -1,9 +1,5 @@
 "use strict";
 
-const users = {
-    id: ["jinjinstar3", "woorime", "mrkim"],
-    pass: ["1234", "1234", "123456"],
-};
 
 const output = {
     home: (req, res) => {
@@ -14,6 +10,10 @@ const output = {
     }
 };
 
+const users = {
+    id: ["jinjinstar3", "woorime", "mrkim"],
+    pass: ["1234", "1234", "123456"],
+};
 const process = {
     login: (req, res) => {
         const id = req.body.id;
@@ -23,11 +23,12 @@ const process = {
             const idx = users.id.indexOf(id);
             if (users.pass[idx] === pass) {
                 return res.json({
-                    success: true,
+                    success: true,  //로그인이 성공하게 되면 success와 msg를 json으로 묶어서 res(front단 으로)응답을 하게 된다.
+                    msg: '로그인 성공!',
                 });
             }
         }
-        return res.json( {
+        return res.json( {  //동일하게 json으로 묶어서 res로 응답해줌
             success: false,
             msg: '로그인 실패!',
         });
