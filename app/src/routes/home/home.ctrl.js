@@ -1,5 +1,7 @@
 "use strict";
 
+//model을 불러온다.
+const UserStorage = require('../../models/UserStorage');
 
 const output = {
     home: (req, res) => {
@@ -10,14 +12,12 @@ const output = {
     }
 };
 
-const users = {
-    id: ["jinjinstar3", "woorime", "mrkim"],
-    pass: ["1234", "1234", "123456"],
-};
+
 const process = {
     login: (req, res) => {
         const id = req.body.id;
         const pass = req.body.pass;
+        const users = UserStorage.getUsers("id", "pass");
 
         if(users.id.includes(id)) {
             const idx = users.id.indexOf(id);
