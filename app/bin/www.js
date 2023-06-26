@@ -6,5 +6,5 @@ const app = require('../app');
 
 //서버연결
 app.listen(POST, () => {
-    console.log('서버 가동');
+    console.log('login-lecture 서버 가동');
 });
