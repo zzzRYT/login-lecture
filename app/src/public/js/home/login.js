@@ -12,14 +12,13 @@ function login() {
     const req = {
         id: id.value,
         pass: pass.value
-    }
+    };
     // console.log(req);
-};
-
-fetch('/login', {
-    method: "POST",
-    headers: {
-        "Content-Type" : "application/json",
-    },
-    body: JSON.stringify(req),
-});
+    fetch('/login', {
+        method: "POST", //rest의 전달 기능  
+        headers: {
+            "Content-Type" : "application/json",
+        },
+        body: JSON.stringify(req),
+    });
+}
