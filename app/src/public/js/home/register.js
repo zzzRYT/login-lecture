@@ -3,20 +3,24 @@
 //일종의 인터페이스 : js의 값을 가져와 서버에서 사용할 수 있다.
 
 const id =document.querySelector('#id');
+const name = document.querySelector('#name');
 const pass = document.querySelector('#pass');
-const loginBtn = document.querySelector('#button');
+const confirmPass = document.querySelector('#confirm-pass');
+const registerBtn = document.querySelector('#button');
 
-loginBtn.addEventListener("click", login);
+registerBtn.addEventListener("click", register);
 
-function login() {
+function register() {
     const req = {
         id: id.value,
-        pass: pass.value
+        name: name.value,
+        pass: pass.value,
+        confirmPass: confirmPass.value,
     };
     // console.log(req);
 
     //fetch로 서버에 값을 보낸다.
-    fetch('/login', {
+    fetch('/register', {
         method: "POST", //rest의 전달 기능  
         headers: {
             "Content-Type" : "application/json",
@@ -27,12 +31,12 @@ function login() {
     .then((res) => res.json()) //res.json json으로 묶인 res를 Promiss 형태로불러온다.
     .then((res) => {   //Promise값을 받기 위해서 then을 한 번 더 사용해 줘야 한다.
         if(res.success) {
-            location.href = "/";
+            location.href = "/login";
         } else {
             alert(res.msg);
         }
     })
     .catch((err) => {
-        console.error(new Error('로그인 중 에러 발생')); 
+        console.error(new Error('회원가입 중 에러 발생')); 
     });
 }
