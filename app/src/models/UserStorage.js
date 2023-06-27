@@ -15,9 +15,9 @@ class UserStorage {
         return userInfo;
     }
 
-    //데이터를 #을 통해서 은닉화 하고, 메서드를 통해서 불러와야 한다.
-    static getUsers(...fields) {
-        // const users = this.#users; 
+    static #getUsers(data, isAll,fields) {
+        const users = JSON.parse(data);
+        if(isAll) return users;
         const newUsers = fields.reduce((newUsers, field) => {
             if (users.hasOwnProperty(field)) {
                 newUsers[field] = users[field];
@@ -27,8 +27,17 @@ class UserStorage {
         return newUsers;
     }
 
+    //데이터를 #을 통해서 은닉화 하고, 메서드를 통해서 불러와야 한다.
+    static getUsers(isAll ,...fields) {
+        return fs
+        .readFile("./src/databases/users.json")
+        .then((data) => {
+            return this.#getUsers(data, isAll,fields);
+        })
+        .catch(console.error);
+    }
+
     static getUserInfo(id) {
-        // const users = this.#users;
         return fs
         .readFile("./src/databases/users.json")
         .then((data) => {
@@ -38,13 +47,18 @@ class UserStorage {
     }
 
 
-    static save(userInfo) {
-        // const users = this.#users;
+    static async save(userInfo) {
+        //databasese에서 데이터를 불러온 다음 그 데이터에 붙여넣기
+        const users = await this.getUsers(true);
+        if(users.id.includes(userInfo.id)){
+            throw '이미 존재하는 아이디입니다.';  
+        } 
         users.id.push(userInfo.id);
         users.name.push(userInfo.name);
-        users.pass.push(userInfo.pass);
-        return {success: true};
+        users.pass.push(userInfo.pass); 
+        fs.writeFile('./src/databases/users.json', JSON.stringify(users));
+        return {success: true}; 
     }
 }   
 
-module.exports = UserStorage;
+module.exports = UserStorage;   
